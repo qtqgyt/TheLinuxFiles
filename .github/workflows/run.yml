@@ -15,12 +15,11 @@ jobs:
     steps:
       - name: Run a multi-line script
         run: |
-          wget https://github.com/sisong/HDiffPatch/releases/download/v4.8.0/hdiffpatch_v4.8.0_bin_linux64.zip
-          unzip hdiffpatch_v4.8.0_bin_linux64.zip
-          svn export https://github.com/qtqgyt/TheLinuxFiles/trunk/Ubuntu
+          wget https://raw.githubusercontent.com/qtqgyt/TheLinuxFiles/main/.data/hpatchz
+          wget -O - https://api.github.com/repos/qtqgyt/TheLinuxFiles/contents/Ubuntu | jq -r '.[].download_url'
           find "Ubuntu/" -maxdepth 1 -mindepth 1 | while IFS= read -r i; do
             echo $i
-            ./linux64/hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
+            ./hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
           done
 
       - name: GitHub Releases
