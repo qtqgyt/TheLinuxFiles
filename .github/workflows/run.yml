@@ -17,12 +17,12 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/qtqgyt/TheLinuxFiles/main/.data/hpatchz
           chmod +x hpatchz
-          wget -O - https://api.github.com/repos/qtqgyt/TheLinuxFiles/contents/Ubuntu | jq -c '.[] | {url: .url, path: .path}' | while IFS= read -r entry; do
-            url=$(echo "$entry" | jq -r '.url')
+          wget -O - https://api.github.com/repos/qtqgyt/TheLinuxFiles/contents/Ubuntu | jq -c '.[] | {download_url: .download_url, path: .path}' | while IFS= read -r entry; do
+            url=$(echo "$entry" | jq -r '.download_url')
             path=$(echo "$entry" | jq -r '.path')
             mkdir -p "$(dirname "$path")"
-            echo "Downloading $url to $path"
-            wget -O "$path" "$url"
+            echo "Downloading $download_url to $path"
+            wget -O "$path" "$download_url"
           done
           find "Ubuntu/" -maxdepth 1 -mindepth 1 -type f -name "*.*" | while IFS= read -r i; do
             ./hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
