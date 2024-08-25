@@ -19,7 +19,9 @@ jobs:
         run: |
           wget https://github.com/sisong/HDiffPatch/releases/download/v4.8.0/hdiffpatch_v4.8.0_bin_linux64.zip
           unzip hdiffpatch_v4.8.0_bin_linux64.zip
-          pwd
+          for i in "Ubuntu"/*; do
+            hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
+          done
 
       - name: GitHub Releases
         uses: fnkr/github-action-ghr@v1.3
