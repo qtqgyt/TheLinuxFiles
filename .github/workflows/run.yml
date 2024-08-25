@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Run a multi-line script
         run: |
+          sudo apt install jq
+          wget -r -np -nH --cut-dirs=3 -R "index.html*" -e robots=off -A "*" "https://github.com/qtqgyt/TheLinuxFiles/trunk/Ubuntu" --header "Accept: application/vnd.github.v3+json"
           wget https://github.com/sisong/HDiffPatch/releases/download/v4.8.0/hdiffpatch_v4.8.0_bin_linux64.zip
           unzip hdiffpatch_v4.8.0_bin_linux64.zip
           find "Ubuntu/" -maxdepth 1 -mindepth 1 | while IFS= read -r i; do
