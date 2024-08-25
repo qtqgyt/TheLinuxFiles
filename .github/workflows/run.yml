@@ -16,6 +16,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           wget https://raw.githubusercontent.com/qtqgyt/TheLinuxFiles/main/.data/hpatchz
+          chmod +x hpatchz
           wget -O - https://api.github.com/repos/qtqgyt/TheLinuxFiles/contents/Ubuntu | jq -c '.[] | {url: .url, path: .path}' | while IFS= read -r entry; do
             url=$(echo "$entry" | jq -r '.url')
             path=$(echo "$entry" | jq -r '.path')
@@ -24,7 +25,6 @@ jobs:
             curl -L "$url" -o "$path"
           done
           find "Ubuntu/" -maxdepth 1 -mindepth 1 | while IFS= read -r i; do
-            echo $i
             ./hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
           done
 
