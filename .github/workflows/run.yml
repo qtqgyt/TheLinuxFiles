@@ -21,8 +21,8 @@ jobs:
             url=$(echo "$entry" | jq -r '.download_url')
             path=$(echo "$entry" | jq -r '.path')
             mkdir -p "$(dirname "$path")"
-            echo "Downloading $download_url to $path"
-            wget -O "$path" "$download_url"
+            echo "Downloading $url to $path"
+            wget -O "$path" "$url"
           done
           find "Ubuntu/" -maxdepth 1 -mindepth 1 -type f -name "*.*" | while IFS= read -r i; do
             ./hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
