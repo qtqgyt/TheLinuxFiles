@@ -15,10 +15,9 @@ jobs:
     steps:
       - name: Run a multi-line script
         run: |
-          sudo apt update
-          sudo apt install jq subversion
           wget https://github.com/sisong/HDiffPatch/releases/download/v4.8.0/hdiffpatch_v4.8.0_bin_linux64.zip
           unzip hdiffpatch_v4.8.0_bin_linux64.zip
+          svn export https://github.com/qtqgyt/TheLinuxFiles/trunk/Ubuntu
           find "Ubuntu/" -maxdepth 1 -mindepth 1 | while IFS= read -r i; do
             echo $i
             ./linux64/hpatchz "Ubuntu/base" "$i.patch" "$i.iso"
